@@ -5,7 +5,7 @@ authors:
   given-names: "Alexey V"
   orcid: "https://orcid.org/0000-0002-7815-3731"
 title: "Project_F_tracking"
-version: 1.0.0
+version: 1.1.1
 doi: 10.5281/zenodo.1234
 date-released: 2024-09-12
 url: "https://github.com/AkimovLab/Project_F_tracking"
