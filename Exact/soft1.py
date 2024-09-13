@@ -152,9 +152,22 @@ q0 = -2.0
 p0 = 10.0
 istate = NSTATES-1
 
-prf = F"EXACT-model{model_indx}-mix"
+nsteps = 1000
+if model_indx==5:
+    q0 = 7.5
+    p0 = 0.0
+    istate = 1
+    nsteps = 10000
 
-exact_params = { "nsteps":1000, "dt":4.0, "progress_frequency":1.0/10,
+elif model_indx==6:
+    q0 = -4.0
+    p0 = 0.0;
+    istate = 0
+    nsteps = 10000
+
+prf = F"EXACT-model{model_indx}"
+
+exact_params = { "nsteps":nsteps, "dt":4.0, "progress_frequency":1.0/10,
                  "rmin":[-30.0], "rmax":[30.0], "dx":[0.025], "nstates":NSTATES,
                   "x0":[q0], "p0":[p0], "istate":[1,  istate], "masses":[1800.0], "k":[0.01],
                   "integrator":"SOFT",
@@ -165,7 +178,7 @@ exact_params = { "nsteps":1000, "dt":4.0, "progress_frequency":1.0/10,
                   "prefix":prf, "prefix2":prf, "use_compression":0, "compression_level":[0, 0, 0]
                }
 
-wfc = init_wfc_custom(exact_params, models.potential, model_params)
+wfc = dvr.init_wfc(exact_params, models.potential, model_params)
 savers = dvr_save.init_tsh_savers(exact_params, model_params, exact_params["nsteps"], wfc)
 dvr.run_dynamics(wfc, exact_params, model_params, savers)
 
