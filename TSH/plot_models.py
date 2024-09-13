@@ -35,17 +35,19 @@ clrs_index = ["11", "21", "31", "41", "12", "22", "32", "13","23", "14", "24"]
 
 # New plotting:
 # Common setups
-plot_params = {"figsize":[20, 5], "titlesize":24, "labelsize":28, "fontsize": 28, "xticksize":26, "yticksize":26,
+plot_params = {"figsize":[20, 5], "titlesize":28, "labelsize":20, "fontsize": 18, "xticksize":26, "yticksize":26,
                "colors": colors, "clrs_index": clrs_index,
                "prefix":F"case", "save_figures":1, "do_show":0,
-               "xlim":[-4, 4], "ylim":[-0.08, 0.08], "ylim2":[-3, 3], "show_nac_abs":1,
+               "xlim":[-4, 4], "ylim":[-0.08, 0.08], "ylim2":[-5, 5], "show_nac_abs":1,
                "plotting_option":1, "nac_idof":0, "margin_bottom":0.2, "margin_left":0.1,
-               "linewidth":10 }
+               "linewidth":8 }
 
 # Esch-Levine
-#for indx, prms in enumerate([models.all_model_params[0]]):
+#for indx, prms in enumerate([models.all_model_params[6]]):
 for indx, prms in enumerate(models.all_model_params):
     list_states = [x for x in range(prms["nstates"])]
     plot_params.update( { "prefix":F"HAM_{indx}" })
-    dynamics_plotting.plot_surfaces(models.compute_model, [ prms ], list_states, -4.0, 8.0, 0.05, plot_params)
+    if indx in [5,6]:
+        plot_params.update( { "xlim":[-6, 10], "ylim":[-0.005, 0.01], "ylim2":[-5, 5] } ) 
+    dynamics_plotting.plot_surfaces(models.compute_model, [ prms ], list_states, -15.0, 10.0, 0.025, plot_params)
 

@@ -67,6 +67,10 @@ model_params = models.all_model_params[model_indx]
 # but so that the total trajectory length is the same
 dt = args.dt
 NSTEPS = int(1000.0/dt)
+
+if model_indx in [5,6]:
+    NSTEPS = int(10000.0/dt)
+
 ################################
 
 NSTATES = model_params["nstates"]
@@ -111,12 +115,25 @@ elif method_indx == 4:
 # Nuclear initial conditions 
 nucl_params = { "ndof":1,  "q":[-2.0], "p":[10.0], "mass":[1800.0], "force_constant":[ 0.01], "init_type":3 }
 
+if model_indx==5:
+    nucl_params.update( {"q":[7.5], "p":[0.0] } )
+elif model_indx==6:
+    nucl_params.update( {"q":[-4.0], "p":[0.0] } )
+
 # Electronic initial conditions - we start on the top state 
+istate = NSTATES - 1
+if model_indx==5:
+    istate = 1
+elif model_indx==6:
+    istate = 0
+
+
 istates = [0.0 for i in range(NSTATES)]
-istates[NSTATES-1] = 1.0 
+istates[istate] = 1.0
+
     
 elec_params = {"verbosity":2, "init_dm_type":0,"ndia":NSTATES, "nadi":NSTATES, 
-               "rep":1, "init_type":0, "istates":istates, "istate":NSTATES-1
+               "rep":1, "init_type":0, "istates":istates, "istate":istate
               }
 
 ### 4. Run the calculations and save the results into the HDF5 files
