@@ -7,5 +7,6 @@ Content of the repository:
           the results are used together with the TSH data, when plotting the results
 
 
-`TSH` - the TSH (GFSH)calculations for different models and state tracking approaches.
+`TSH` - the TSH (GFSH) calculations for different models and state tracking approaches.
 
+`ADD` - the TSH (GFSH) calculations for additional model Hamiltonians (spin-boson)
